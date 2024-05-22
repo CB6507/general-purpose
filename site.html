@@ -1,52 +1,108 @@
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('csvFileInput').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                Papa.parse(file, {
-                    header: true,
-                    dynamicTyping: true,
-                    complete: function(results) {
-                        const data = results.data.filter(row => Object.values(row).some(value => value !== null && value !== ""));
-                        const tableContainer = document.getElementById('tableContainer');
-                        tableContainer.innerHTML = ''; // Clear previous table
-                        const table = document.createElement('div');
-                        table.id = 'dataTable';
-                        tableContainer.appendChild(table);
-                        new Tabulator("#dataTable", {
-                            data: data,
-                            autoColumns: true,
-                            layout: "fitData",
-                            resizableColumns: true,
-                            columns: Object.keys(data[0]).map(key => ({ title: key, field: key, headerWordWrap: true, formatter: "textarea" }))
-                        });
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Navigator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/tabulator-tables@5.0.7/dist/css/tabulator.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/tabulator-tables@5.0.7/dist/js/tabulator.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Data Navigator</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#upload">Upload <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#tables">Tables</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#charts">Charts</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section id="upload" class="py-20">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8">Upload CSV</h2>
+            <input type="file" id="csvFileInput" accept=".csv" class="btn btn-primary">
+        </div>
+    </section>
+    <section id="tables" class="py-20">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8">Tables</h2>
+            <div id="tableContainer" class="mx-auto"></div>
+        </div>
+    </section>
+    <section id="charts" class="py-20 bg-gray-100">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8">Charts</h2>
+            <div id="chartContainer">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('csvFileInput').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    Papa.parse(file, {
+                        header: true,
+                        dynamicTyping: true,
+                        complete: function(results) {
+                            const data = results.data.filter(row => Object.values(row).some(value => value !== null && value !== ""));
+                            const tableContainer = document.getElementById('tableContainer');
+                            tableContainer.innerHTML = ''; // Clear previous table
+                            const table = document.createElement('div');
+                            table.id = 'dataTable';
+                            tableContainer.appendChild(table);
+                            new Tabulator("#dataTable", {
+                                data: data,
+                                autoColumns: true,
+                                layout: "fitData",
+                                resizableColumns: true,
+                                columns: Object.keys(data[0]).map(key => ({ title: key, field: key, headerWordWrap: true, formatter: "textarea" }))
+                            });
 
-                        const labels = data.map(row => row[Object.keys(row)[0]]);
-                        const chartData = {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Dataset',
-                                data: data.map(row => row[Object.keys(row)[1]]),
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
-                            }]
-                        };
-                        const ctx = document.getElementById('myChart').getContext('2d');
-                        new Chart(ctx, {
-                            type: 'bar',
-                            data: chartData,
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
+                            const labels = data.map(row => row[Object.keys(row)[0]]);
+                            const chartData = {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Dataset',
+                                    data: data.map(row => row[Object.keys(row)[1]]),
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    borderWidth: 1
+                                }]
+                            };
+                            const ctx = document.getElementById('myChart').getContext('2d');
+                            new Chart(ctx, {
+                                type: 'bar',
+                                data: chartData,
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
                                     }
                                 }
-                            }
-                        });
-                    }
-                });
-            }
+                            });
+                        }
+                    });
+                }
+            });
         });
-    });
-</script>
+    </script>
+</body>
+</html>
