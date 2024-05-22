@@ -68,9 +68,9 @@
                                 const updatedRow = {};
                                 for (const key in row) {
                                     let newKey = key;
-                                    if (key === "Hiring Manager Complete: Plese enter the Timesheet Manager for this role") {
+                                    if (key.includes("Hiring Manager Complete")) {
                                         newKey = "Timesheet Manager";
-                                    } else if (key === "Chief this position will most directly report to") {
+                                    } else if (key.includes("Chief this position will most directly report to")) {
                                         newKey = "Reporting Chief";
                                     }
                                     updatedRow[newKey] = row[key];
