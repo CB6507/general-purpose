@@ -41,6 +41,16 @@
     <section id="tables" class="py-20">
         <div class="container mx-auto text-center">
             <h2 class="text-4xl font-bold mb-8">Tables</h2>
+            <div class="mb-4">
+                <label for="pageSizeSelector">Show entries:</label>
+                <select id="pageSizeSelector" class="form-control d-inline-block w-auto">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="250">250</option>
+                </select>
+            </div>
             <div id="tableContainer" class="mx-auto"></div>
         </div>
     </section>
@@ -67,12 +77,29 @@
                             const table = document.createElement('div');
                             table.id = 'dataTable';
                             tableContainer.appendChild(table);
-                            new Tabulator("#dataTable", {
+                            const tabulator = new Tabulator("#dataTable", {
                                 data: data,
                                 autoColumns: true,
                                 layout: "fitData",
                                 resizableColumns: true,
-                                columns: Object.keys(data[0]).map(key => ({ title: key, field: key, headerWordWrap: true, formatter: "textarea" }))
+                                pagination: "local",
+                                paginationSize: 10,
+                                paginationSizeSelector: [10, 25, 50, 100, 250],
+                                columns: Object.keys(data[0]).map(key => ({
+                                    title: key,
+                                    field: key,
+                                    headerFilter: "input",
+                                    headerWordWrap: true,
+                                    formatter: "textarea"
+                                })),
+                                ajaxFiltering: true,
+                                ajaxSorting: true,
+                                height: "100%",
+                                virtualDom: true
+                            });
+
+                            document.getElementById('pageSizeSelector').addEventListener('change', function() {
+                                tabulator.setPageSize(parseInt(this.value));
                             });
 
                             const labels = data.map(row => row[Object.keys(row)[0]]);
@@ -106,3 +133,5 @@
     </script>
 </body>
 </html>
+
+
