@@ -92,20 +92,6 @@
                                 return updatedRow;
                             });
 
-                            // Update headers
-                            const updatedData = data.map(row => {
-                                const updatedRow = {};
-                                for (const key in row) {
-                                    let newKey = key;
-                                    if (key.includes("Hiring Manager Complete")) {
-                                        newKey = "Timesheet Manager";
-                                    } else if (key.includes("Chief this position will most directly report to")) {
-                                        newKey = "Reporting Chief";
-                                    }
-                                    updatedRow[newKey] = row[key];
-                                }
-                                return updatedRow;
-                            });
                             const tableContainer = document.getElementById('tableContainer');
                             tableContainer.innerHTML = ''; // Clear previous table
                             const table = document.createElement('div');
