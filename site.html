@@ -62,13 +62,28 @@
                         dynamicTyping: true,
                         complete: function(results) {
                             const data = results.data.filter(row => Object.values(row).some(value => value !== null && value !== ""));
+
+                            // Update headers
+                            const updatedData = data.map(row => {
+                                const updatedRow = {};
+                                for (const key in row) {
+                                    let newKey = key;
+                                    if (key === "Hiring Manager Complete: Plese enter the Timesheet Manager for this role") {
+                                        newKey = "Timesheet Manager";
+                                    } else if (key === "Chief this position will most directly report to") {
+                                        newKey = "Reporting Chief";
+                                    }
+                                    updatedRow[newKey] = row[key];
+                                }
+                                return updatedRow;
+                            });
                             const tableContainer = document.getElementById('tableContainer');
                             tableContainer.innerHTML = ''; // Clear previous table
                             const table = document.createElement('div');
                             table.id = 'dataTable';
                             tableContainer.appendChild(table);
                             const tabulator = new Tabulator("#dataTable", {
-                                data: data,
+                                data: updatedData,
                                 autoColumns: true,
                                 layout: "fitData",
                                 pagination: "local",
