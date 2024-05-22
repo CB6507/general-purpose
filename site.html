@@ -71,7 +71,6 @@
                                 data: data,
                                 autoColumns: true,
                                 layout: "fitData",
-                                resizableColumns: true,
                                 pagination: "local",
                                 paginationSize: 10,
                                 columns: Object.keys(data[0]).map(key => ({
@@ -80,11 +79,7 @@
                                     headerFilter: "input",
                                     headerWordWrap: true,
                                     formatter: "textarea"
-                                })),
-                                ajaxFiltering: true,
-                                ajaxSorting: true,
-                                height: "100%",
-                                virtualDom: true
+                                }))
                             });
 
 
