@@ -63,6 +63,35 @@
                         complete: function(results) {
                             const data = results.data.filter(row => Object.values(row).some(value => value !== null && value !== ""));
 
+                            // Ensure all rows have the same keys
+                            const allKeys = new Set();
+                            data.forEach(row => {
+                                Object.keys(row).forEach(key => allKeys.add(key));
+                            });
+
+                            const normalizedData = data.map(row => {
+                                const normalizedRow = {};
+                                allKeys.forEach(key => {
+                                    normalizedRow[key] = row[key] || "";
+                                });
+                                return normalizedRow;
+                            });
+
+                            // Update headers
+                            const updatedData = normalizedData.map(row => {
+                                const updatedRow = {};
+                                for (const key in row) {
+                                    let newKey = key;
+                                    if (key.includes("Hiring Manager Complete")) {
+                                        newKey = "Timesheet Manager";
+                                    } else if (key.includes("Chief this position will most directly report to")) {
+                                        newKey = "Reporting Chief";
+                                    }
+                                    updatedRow[newKey] = row[key];
+                                }
+                                return updatedRow;
+                            });
+
                             // Update headers
                             const updatedData = data.map(row => {
                                 const updatedRow = {};
