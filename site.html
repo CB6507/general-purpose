@@ -93,6 +93,15 @@
                                 return updatedRow;
                             });
 
+                            // Ensure all columns are present in the Tabulator configuration
+                            const columns = Array.from(allKeys).map(key => ({
+                                title: key.includes("Hiring Manager Complete") ? "Timesheet Manager" : key.includes("Chief this position will most directly report to") ? "Reporting Chief" : key,
+                                field: key,
+                                headerFilter: "input",
+                                headerWordWrap: true,
+                                formatter: "textarea"
+                            }));
+
                             const tableContainer = document.getElementById('tableContainer');
                             tableContainer.innerHTML = ''; // Clear previous table
                             const table = document.createElement('div');
@@ -100,7 +109,6 @@
                             tableContainer.appendChild(table);
                             const tabulator = new Tabulator("#dataTable", {
                                 data: updatedData,
-                                autoColumns: true,
                                 layout: "fitData",
                                 pagination: "local",
                                 paginationSize: 10,
