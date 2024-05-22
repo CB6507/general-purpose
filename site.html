@@ -4,3 +4,91 @@
         <input type="file" id="csvFileInput" accept=".csv" class="btn btn-primary">
     </div>
 </section>
+<section id="tables" class="py-20">
+    <div class="container mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-8">Tables</h2>
+        <div class="mb-4">
+            <select id="pageSizeSelector" class="form-control d-inline-block w-auto">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="250">250</option>
+            </select>
+        </div>
+        <div id="tableContainer" class="mx-auto"></div>
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('csvFileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                Papa.parse(file, {
+                    header: true,
+                    dynamicTyping: true,
+                    complete: function(results) {
+                        const data = results.data.filter(row => Object.values(row).some(value => value !== null && value !== ""));
+                        const tableContainer = document.getElementById('tableContainer');
+                        tableContainer.innerHTML = ''; // Clear previous table
+                        const table = document.createElement('div');
+                        table.id = 'dataTable';
+                        tableContainer.appendChild(table);
+                        const tabulator = new Tabulator("#dataTable", {
+                            data: data,
+                            autoColumns: true,
+                            layout: "fitData",
+                            resizableColumns: true,
+                            pagination: "local",
+                            paginationSize: 10,
+                            paginationSizeSelector: [10, 25, 50, 100, 250],
+                            columns: Object.keys(data[0]).map(key => ({
+                                title: key,
+                                field: key,
+                                headerFilter: "input",
+                                headerWordWrap: true,
+                                formatter: "textarea"
+                            })),
+                            ajaxFiltering: true,
+                            ajaxSorting: true,
+                            height: "100%",
+                            virtualDom: true
+                        });
+
+                        document.getElementById('pageSizeSelector').addEventListener('change', function() {
+                            tabulator.setPageSize(parseInt(this.value));
+                        });
+
+                        const labels = data.map(row => row[Object.keys(row)[0]]);
+                        const chartData = {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Dataset',
+                                data: data.map(row => row[Object.keys(row)[1]]),
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            }]
+                        };
+                        const ctx = document.getElementById('myChart').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: chartData,
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+
+
+
