@@ -174,12 +174,12 @@
                                 const xColumn = xAxisColumn.value;
                                 const yColumn = yAxisColumn.value;
 
-                                const labels = data.map(row => row[xColumn]);
+                                const labels = updatedData.map(row => row[xColumn]);
                                 const chartData = {
                                     labels: labels,
                                     datasets: [{
                                         label: yColumn,
-                                        data: data.map(row => row[yColumn]),
+                                        data: updatedData.map(row => row[yColumn]),
                                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                                         borderColor: 'rgba(75, 192, 192, 1)',
                                         borderWidth: 1
