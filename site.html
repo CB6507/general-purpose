@@ -293,7 +293,7 @@
                 navbar.classList.add('navbar-dark', 'bg-dark');
                 console.log('Initial state: Navbar classes after dark mode activation:', navbar.classList);
                 document.getElementById('tableContainer').classList.add('dark-mode');
-                document.querySelector('head').classList.add('dark-mode-head');
+                console.log('Initial state: Table container classes after dark mode activation:', document.getElementById('tableContainer').classList);
             } else {
                 document.querySelector('head').classList.remove('dark-mode-head');
                 console.log('Initial state: Dark mode is deactivated');
@@ -306,6 +306,7 @@
                 navbar.classList.remove('navbar-dark', 'bg-dark');
                 console.log('Initial state: Navbar classes after dark mode deactivation:', navbar.classList);
                 document.getElementById('tableContainer').classList.remove('dark-mode');
+                console.log('Initial state: Table container classes after dark mode deactivation:', document.getElementById('tableContainer').classList);
                 darkModeIcon.classList.remove('fa-moon');
                 darkModeIcon.classList.add('fa-sun');
             }
