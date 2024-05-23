@@ -16,7 +16,7 @@
 <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
         <a class="navbar-brand" href="#">Data Navigator</a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
@@ -146,6 +146,20 @@
                             table.id = 'dataTable';
                             tableContainer.appendChild(table);
                             let tabulator = new Tabulator("#dataTable", {
+                                layout: "fitDataTable",
+                                pagination: "local",
+                                paginationSize: 10,
+                                columns: columns,
+                                columnDefaults: {
+                                    sorter: "string"
+                                },
+                                rowFormatter: function(row) {
+                                    if (darkmode.isActivated()) {
+                                        row.getElement().classList.add('dark-mode');
+                                    } else {
+                                        row.getElement().classList.remove('dark-mode');
+                                    }
+                                }
                                 data: updatedData,
                                 layout: "fitDataTable",
                                 pagination: "local",
@@ -244,7 +258,14 @@
                     console.log('Dark mode is activated');
                     darkModeIcon.classList.remove('fa-sun');
                     darkModeIcon.classList.add('fa-moon');
+                    document.body.classList.add('dark-mode');
+                    document.getElementById('navbar').classList.add('navbar-dark', 'bg-dark');
+                    document.getElementById('tableContainer').classList.add('dark-mode');
+                } else {
                     console.log('Dark mode is deactivated');
+                    document.body.classList.remove('dark-mode');
+                    document.getElementById('navbar').classList.remove('navbar-dark', 'bg-dark');
+                    document.getElementById('tableContainer').classList.remove('dark-mode');
                     darkModeIcon.classList.remove('fa-moon');
                     darkModeIcon.classList.add('fa-sun');
                 }
@@ -256,7 +277,14 @@
                 console.log('Initial state: Dark mode is activated');
                 darkModeIcon.classList.remove('fa-sun');
                 darkModeIcon.classList.add('fa-moon');
+                document.body.classList.add('dark-mode');
+                document.getElementById('navbar').classList.add('navbar-dark', 'bg-dark');
+                document.getElementById('tableContainer').classList.add('dark-mode');
+            } else {
                 console.log('Initial state: Dark mode is deactivated');
+                document.body.classList.remove('dark-mode');
+                document.getElementById('navbar').classList.remove('navbar-dark', 'bg-dark');
+                document.getElementById('tableContainer').classList.remove('dark-mode');
                 darkModeIcon.classList.remove('fa-moon');
                 darkModeIcon.classList.add('fa-sun');
             }
@@ -270,6 +298,18 @@
 <style>
     .hidden {
         display: none;
+    }
+    .dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+    }
+    .dark-mode .tabulator-row {
+        background-color: #121212;
+        color: #ffffff;
+    }
+    .dark-mode .tabulator-header {
+        background-color: #1f1f1f;
+        color: #ffffff;
     }
 </style>
 <style>
