@@ -218,8 +218,8 @@
                                     return {
                                         label: yValue,
                                         data: labels.map(label => groupedData[label][yValue] || 0),
-                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                        backgroundColor: colors[colorIndex],
+                                        borderColor: borderColors[colorIndex],
                                         borderWidth: 1
                                     };
                                 });
