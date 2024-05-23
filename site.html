@@ -230,6 +230,34 @@
                                                 stacked: true,
                                                 beginAtZero: true
                                             }
+                                        },
+                                        onClick: function(event, elements) {
+                                            if (elements.length > 0) {
+                                                const element = elements[0];
+                                                const datasetIndex = element.datasetIndex;
+                                                const index = element.index;
+                                                const xValue = chartData.labels[index];
+                                                const yValue = chartData.datasets[datasetIndex].label;
+
+                                                tabulator.setFilter([
+                                                    {field: xColumn, type: "=", value: xValue},
+                                                    {field: yColumn, type: "=", value: yValue}
+                                                ]);
+                                            }
+                                        }
+                                    }
+                                });
+                                    type: 'bar',
+                                    data: chartData,
+                                    options: {
+                                        scales: {
+                                            x: {
+                                                stacked: true
+                                            },
+                                            y: {
+                                                stacked: true,
+                                                beginAtZero: true
+                                            }
                                         }
                                     }
                                 });
