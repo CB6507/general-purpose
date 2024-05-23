@@ -136,15 +136,15 @@
                             const xAxisColumn = document.getElementById('xAxisColumn');
                             const yAxisColumn = document.getElementById('yAxisColumn');
 
-                            allKeys.forEach(key => {
+                            columns.forEach(column => {
                                 const optionX = document.createElement('option');
-                                optionX.value = key;
-                                optionX.text = key;
+                                optionX.value = column.field;
+                                optionX.text = column.title;
                                 xAxisColumn.appendChild(optionX);
 
                                 const optionY = document.createElement('option');
-                                optionY.value = key;
-                                optionY.text = key;
+                                optionY.value = column.field;
+                                optionY.text = column.title;
                                 yAxisColumn.appendChild(optionY);
                             });
 
