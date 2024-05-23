@@ -69,21 +69,24 @@
     <section id="charts" class="py-20 bg-gray-100">
         <div class="container mx-auto text-center">
             <h2 class="text-4xl font-bold mb-8"><i class="fas fa-chart-bar" style="font-size: 0.8em;"></i> Charts</h2>
-            <div class="mb-4">
-                <label for="chartType" class="mr-2">Type of Chart:</label>
-                <select id="chartType" class="form-select">
-                    <option value="bar">Bar</option>
-                    <option value="line">Line</option>
-                    <option value="pie">Pie</option>
-                    <option value="doughnut">Doughnut</option>
-                </select>
-            </div>
-                <label for="xAxisColumn" class="mr-2">X-Axis:</label>
-                <select id="xAxisColumn" class="form-select"></select>
-            </div>
-            <div class="mb-4">
-                <label for="yAxisColumn" class="mr-2">Y-Axis:</label>
-                <select id="yAxisColumn" class="form-select"></select>
+            <div class="mb-4 flex justify-center">
+                <div class="mr-4">
+                    <label for="chartType" class="mr-2">Type of Chart:</label>
+                    <select id="chartType" class="form-select">
+                        <option value="bar">Bar</option>
+                        <option value="line">Line</option>
+                        <option value="pie">Pie</option>
+                        <option value="doughnut">Doughnut</option>
+                    </select>
+                </div>
+                <div class="mr-4">
+                    <label for="xAxisColumn" class="mr-2">X-Axis:</label>
+                    <select id="xAxisColumn" class="form-select"></select>
+                </div>
+                <div>
+                    <label for="yAxisColumn" class="mr-2">Y-Axis:</label>
+                    <select id="yAxisColumn" class="form-select"></select>
+                </div>
             </div>
             <div class="mb-4">
                 <button id="updateChart" class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update Chart</button>
