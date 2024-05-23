@@ -17,6 +17,13 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+        <div id="verticalSelector" class="fixed top-1/4 left-0 bg-white shadow-lg rounded-r-lg p-4">
+            <ul class="list-none">
+                <li class="mb-2"><a href="#upload" class="text-blue-500 hover:text-blue-700">Upload CSV</a></li>
+                <li class="mb-2"><a href="#tables" class="text-blue-500 hover:text-blue-700">Tables</a></li>
+                <li class="mb-2"><a href="#charts" class="text-blue-500 hover:text-blue-700">Charts</a></li>
+            </ul>
+        </div>
         <a class="navbar-brand" href="#">Data Navigator</a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
@@ -277,6 +284,42 @@
             }
         });
     </script>
+    <style>
+        .fixed {
+            position: fixed;
+        }
+        .top-1/4 {
+            top: 25%;
+        }
+        .left-0 {
+            left: 0;
+        }
+        .bg-white {
+            background-color: white;
+        }
+        .shadow-lg {
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .rounded-r-lg {
+            border-top-right-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+        }
+        .p-4 {
+            padding: 1rem;
+        }
+        .list-none {
+            list-style-type: none;
+        }
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+        .text-blue-500 {
+            color: #3b82f6;
+        }
+        .hover\:text-blue-700:hover {
+            color: #1d4ed8;
+        }
+    </style>
     </script>
 </body>
 </html>
