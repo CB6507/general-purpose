@@ -121,7 +121,7 @@
                             tableContainer.appendChild(table);
                             const tabulator = new Tabulator("#dataTable", {
                                 data: updatedData,
-                                layout: "fitData",
+                                layout: "fitColumns",
                                 pagination: "local",
                                 paginationSize: 10,
                                 columns: columns,
@@ -167,5 +167,13 @@
 <style>
     .hidden {
         display: none;
+    }
+</style>
+<style>
+    .tabulator .tabulator-header .tabulator-col {
+        white-space: nowrap;
+    }
+    .tabulator .tabulator-tableHolder {
+        overflow-x: auto;
     }
 </style>
