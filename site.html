@@ -175,16 +175,19 @@
                                 const yColumn = yAxisColumn.value;
 
                                 const labels = updatedData.map(row => row[xColumn]);
+                                const dataPoints = updatedData.map(row => row[yColumn]);
+
                                 const chartData = {
                                     labels: labels,
                                     datasets: [{
                                         label: yColumn,
-                                        data: updatedData.map(row => row[yColumn]),
+                                        data: dataPoints,
                                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                                         borderColor: 'rgba(75, 192, 192, 1)',
                                         borderWidth: 1
                                     }]
                                 };
+
                                 const ctx = document.getElementById('myChart').getContext('2d');
                                 if (window.myChart instanceof Chart) {
                                     window.myChart.destroy();
