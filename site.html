@@ -131,7 +131,6 @@
                                     title: title,
                                     field: key,
                                     headerFilter: "input",
-                                    headerWordWrap: true,
                                     formatter: "textarea",
                                     sorter: "string",
                                     width: columnWidth
@@ -187,7 +186,10 @@
                                     }]
                                 };
                                 const ctx = document.getElementById('myChart').getContext('2d');
-                                new Chart(ctx, {
+                                if (window.myChart) {
+                                    window.myChart.destroy();
+                                }
+                                window.myChart = new Chart(ctx, {
                                     type: 'bar',
                                     data: chartData,
                                     options: {
