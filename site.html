@@ -149,13 +149,6 @@
                                 columnDefaults: {
                                     sorter: "string"
                                 },
-                                rowFormatter: function(row) {
-                                    if (darkmode.isActivated()) {
-                                        row.getElement().classList.add('dark-mode');
-                                    } else {
-                                        row.getElement().classList.remove('dark-mode');
-                                    }
-                                },
                                 data: updatedData
                             });
 
@@ -249,7 +242,6 @@
                     head.classList.add('dark-mode-head');
                     const navbar = document.getElementById('navbar');
                     navbar.classList.add('navbar-dark', 'bg-dark');
-                    document.getElementById('tableContainer').classList.add('dark-mode');
                     document.querySelector('head').classList.add('dark-mode-head');
                 } else {
                     document.querySelector('head').classList.remove('dark-mode-head');
@@ -258,7 +250,6 @@
                     head.classList.remove('dark-mode-head');
                     const navbar = document.getElementById('navbar');
                     navbar.classList.remove('navbar-dark', 'bg-dark');
-                    document.getElementById('tableContainer').classList.remove('dark-mode');
                     darkModeIcon.classList.remove('fa-moon');
                     darkModeIcon.classList.add('fa-sun');
                 }
@@ -297,14 +288,6 @@
     }
     .dark-mode {
         background-color: #121212;
-        color: #ffffff;
-    }
-    .dark-mode .tabulator-row {
-        background-color: #121212;
-        color: #ffffff;
-    }
-    .dark-mode .tabulator-header {
-        background-color: #1f1f1f;
         color: #ffffff;
     }
     .dark-mode-head {
