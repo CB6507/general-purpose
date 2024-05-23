@@ -114,13 +114,16 @@
                                 } else if (key.includes("Chief this position will most directly report to")) {
                                     title = "Reporting Chief";
                                 }
+                                // Set a fixed width for each column
+                                const columnWidth = 150; // Adjust this value as needed
                                 return {
                                     title: title,
                                     field: key,
                                     headerFilter: "input",
                                     headerWordWrap: true,
                                     formatter: "textarea",
-                                    sorter: "string"
+                                    sorter: "string",
+                                    width: columnWidth
                                 };
                             });
 
