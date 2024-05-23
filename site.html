@@ -131,7 +131,7 @@
                             tableContainer.appendChild(table);
                             let tabulator = new Tabulator("#dataTable", {
                                 data: updatedData,
-                                layout: "fitColumns",
+                                layout: "fitDataTable",
                                 pagination: "local",
                                 paginationSize: 10,
                                 columns: columns,
@@ -188,6 +188,9 @@
         white-space: nowrap;
     }
     .tabulator .tabulator-tableHolder {
+        overflow-x: auto;
+    }
+    #tableContainer {
         overflow-x: auto;
     }
 </style>
