@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head class="dark-mode-head">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Navigator</title>
@@ -254,7 +254,9 @@
                     document.body.classList.add('dark-mode');
                     document.getElementById('navbar').classList.add('navbar-dark', 'bg-dark');
                     document.getElementById('tableContainer').classList.add('dark-mode');
+                    document.querySelector('head').classList.add('dark-mode-head');
                 } else {
+                    document.querySelector('head').classList.remove('dark-mode-head');
                     console.log('Dark mode is deactivated');
                     document.body.classList.remove('dark-mode');
                     document.getElementById('navbar').classList.remove('navbar-dark', 'bg-dark');
@@ -273,7 +275,9 @@
                 document.body.classList.add('dark-mode');
                 document.getElementById('navbar').classList.add('navbar-dark', 'bg-dark');
                 document.getElementById('tableContainer').classList.add('dark-mode');
+                document.querySelector('head').classList.add('dark-mode-head');
             } else {
+                document.querySelector('head').classList.remove('dark-mode-head');
                 console.log('Initial state: Dark mode is deactivated');
                 document.body.classList.remove('dark-mode');
                 document.getElementById('navbar').classList.remove('navbar-dark', 'bg-dark');
@@ -302,6 +306,10 @@
     }
     .dark-mode .tabulator-header {
         background-color: #1f1f1f;
+        color: #ffffff;
+    }
+    .dark-mode-head {
+        background-color: #121212;
         color: #ffffff;
     }
 </style>
