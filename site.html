@@ -91,7 +91,6 @@
                             const data = results.data.filter(row => Object.values(row).some(value => value !== null && value !== ""));
 
 
-                            // Ensure all rows have the same keys
                             const allKeys = new Set();
                             data.forEach(row => {
                                 Object.keys(row).forEach(key => allKeys.add(key));
@@ -105,7 +104,6 @@
                                 return normalizedRow;
                             });
 
-                            // Update headers
                             const updatedData = normalizedData.map(row => {
                                 const updatedRow = {};
                                 for (const key in row) {
@@ -120,7 +118,6 @@
                                 return updatedRow;
                             });
 
-                            // Ensure all columns are present in the Tabulator configuration
                             const columns = Array.from(allKeys).map(key => {
                                 let title = key;
                                 if (key.includes("Hiring Manager Complete")) {
@@ -128,7 +125,6 @@
                                 } else if (key.includes("Chief this position will most directly report to")) {
                                     title = "Reporting Chief";
                                 }
-                                // Set a fixed width for each column
                                 const columnWidth = 150; // Adjust this value as needed
                                 return {
                                     title: title,
@@ -141,7 +137,7 @@
                             });
 
                             const tableContainer = document.getElementById('tableContainer');
-                            tableContainer.innerHTML = ''; // Clear previous table
+                            tableContainer.innerHTML = '';
                             const table = document.createElement('div');
                             table.id = 'dataTable';
                             tableContainer.appendChild(table);
@@ -167,7 +163,6 @@
                             const xAxisColumn = document.getElementById('xAxisColumn');
                             const yAxisColumn = document.getElementById('yAxisColumn');
 
-                            // Populate the dropdowns with column names
                             allKeys.forEach(key => {
                                 const optionX = document.createElement('option');
                                 optionX.value = key;
@@ -225,17 +220,17 @@
                 }
             });
             const darkModeOptions = {
-                bottom: '32px', // default: '32px'
-                right: '32px', // default: '32px'
-                left: 'unset', // default: 'unset'
-                time: '0.5s', // default: '0.3s'
-                mixColor: '#fff', // default: '#fff'
-                backgroundColor: '#fff',  // default: '#fff'
-                buttonColorDark: '#100f2c',  // default: '#100f2c'
-                buttonColorLight: '#fff', // default: '#fff'
-                saveInCookies: false, // default: true,
-                label: '🌓', // default: ''
-                autoMatchOsTheme: true // default: true
+                bottom: '32px',
+                right: '32px',
+                left: 'unset',
+                time: '0.5s',
+                mixColor: '#fff',
+                backgroundColor: '#fff',
+                buttonColorDark: '#100f2c',
+                buttonColorLight: '#fff',
+                saveInCookies: false,
+                label: '🌓',
+                autoMatchOsTheme: true
             };
 
             const darkmode = new Darkmode(darkModeOptions);
@@ -246,67 +241,46 @@
 
             darkModeToggle.addEventListener('click', () => {
                 darkmode.toggle();
-                console.log('Dark mode toggled');
                 if (darkmode.isActivated()) {
-                    console.log('Dark mode is activated');
                     darkModeIcon.classList.remove('fa-sun');
                     darkModeIcon.classList.add('fa-moon');
                     document.body.classList.add('dark-mode');
-                    console.log('Body classes after dark mode activation:', document.body.classList);
                     const head = document.querySelector('head');
                     head.classList.add('dark-mode-head');
-                    console.log('Head classes after dark mode activation:', head.classList);
                     const navbar = document.getElementById('navbar');
                     navbar.classList.add('navbar-dark', 'bg-dark');
-                    console.log('Navbar classes after dark mode activation:', navbar.classList);
                     document.getElementById('tableContainer').classList.add('dark-mode');
                     document.querySelector('head').classList.add('dark-mode-head');
                 } else {
                     document.querySelector('head').classList.remove('dark-mode-head');
-                    console.log('Dark mode is deactivated');
                     document.body.classList.remove('dark-mode');
-                    console.log('Body classes after dark mode deactivation:', document.body.classList);
                     const head = document.querySelector('head');
                     head.classList.remove('dark-mode-head');
-                    console.log('Head classes after dark mode deactivation:', head.classList);
                     const navbar = document.getElementById('navbar');
                     navbar.classList.remove('navbar-dark', 'bg-dark');
-                    console.log('Navbar classes after dark mode deactivation:', navbar.classList);
                     document.getElementById('tableContainer').classList.remove('dark-mode');
                     darkModeIcon.classList.remove('fa-moon');
                     darkModeIcon.classList.add('fa-sun');
                 }
             });
 
-            // Set initial icon based on current mode
-            console.log('Initial dark mode state:', darkmode.isActivated());
             if (darkmode.isActivated()) {
-                console.log('Initial state: Dark mode is activated');
                 darkModeIcon.classList.remove('fa-sun');
                 darkModeIcon.classList.add('fa-moon');
                 document.body.classList.add('dark-mode');
-                console.log('Initial state: Body classes after dark mode activation:', document.body.classList);
                 const head = document.querySelector('head');
                 head.classList.add('dark-mode-head');
-                console.log('Initial state: Head classes after dark mode activation:', head.classList);
                 const navbar = document.getElementById('navbar');
                 navbar.classList.add('navbar-dark', 'bg-dark');
-                console.log('Initial state: Navbar classes after dark mode activation:', navbar.classList);
                 document.getElementById('tableContainer').classList.add('dark-mode');
-                console.log('Initial state: Table container classes after dark mode activation:', document.getElementById('tableContainer').classList);
             } else {
                 document.querySelector('head').classList.remove('dark-mode-head');
-                console.log('Initial state: Dark mode is deactivated');
                 document.body.classList.remove('dark-mode');
-                console.log('Initial state: Body classes after dark mode deactivation:', document.body.classList);
                 const head = document.querySelector('head');
                 head.classList.remove('dark-mode-head');
-                console.log('Initial state: Head classes after dark mode deactivation:', head.classList);
                 const navbar = document.getElementById('navbar');
                 navbar.classList.remove('navbar-dark', 'bg-dark');
-                console.log('Initial state: Navbar classes after dark mode deactivation:', navbar.classList);
                 document.getElementById('tableContainer').classList.remove('dark-mode');
-                console.log('Initial state: Table container classes after dark mode deactivation:', document.getElementById('tableContainer').classList);
                 darkModeIcon.classList.remove('fa-moon');
                 darkModeIcon.classList.add('fa-sun');
             }
