@@ -192,7 +192,10 @@
                                     return acc;
                                 }, {});
 
-                                const labels = Object.keys(groupedData);
+                                let labels = Object.keys(groupedData);
+                                if (labels.every(label => isNaN(label))) {
+                                    labels = labels.sort();
+                                }
                                 const yValues = Array.from(new Set(updatedData.map(row => row[yColumn])));
 
                                 const colors = [
