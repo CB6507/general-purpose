@@ -35,7 +35,10 @@
     <section id="upload" class="py-20 bg-gray-100">
         <div class="container mx-auto text-center">
             <h2 class="text-4xl font-bold mb-8">Upload CSV</h2>
-            <input type="file" id="csvFileInput" accept=".csv" class="btn btn-primary">
+            <input type="file" id="csvFileInput" accept=".csv" class="hidden">
+            <label for="csvFileInput" class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                Choose File
+            </label>
         </div>
     </section>
     <section id="tables" class="py-20">
@@ -152,3 +155,8 @@
 </html>
 
 
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
