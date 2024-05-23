@@ -97,13 +97,22 @@
                             });
 
                             // Ensure all columns are present in the Tabulator configuration
-                            const columns = Array.from(allKeys).map(key => ({
-                                title: key.includes("Hiring Manager Complete") ? "Timesheet Manager" : key.includes("Chief this position will most directly report to") ? "Reporting Chief" : key,
-                                field: key,
-                                headerFilter: "input",
-                                headerWordWrap: true,
-                                formatter: "textarea"
-                            }));
+                            const columns = Array.from(allKeys).map(key => {
+                                let title = key;
+                                if (key.includes("Hiring Manager Complete")) {
+                                    title = "Timesheet Manager";
+                                } else if (key.includes("Chief this position will most directly report to")) {
+                                    title = "Reporting Chief";
+                                }
+                                return {
+                                    title: title,
+                                    field: key,
+                                    headerFilter: "input",
+                                    headerWordWrap: true,
+                                    formatter: "textarea",
+                                    sorter: "string"
+                                };
+                            });
 
                             const tableContainer = document.getElementById('tableContainer');
                             tableContainer.innerHTML = ''; // Clear previous table
