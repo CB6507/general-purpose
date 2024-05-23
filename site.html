@@ -253,6 +253,9 @@
                     darkModeIcon.classList.add('fa-moon');
                     document.body.classList.add('dark-mode');
                     console.log('Body classes after dark mode activation:', document.body.classList);
+                    const head = document.querySelector('head');
+                    head.classList.add('dark-mode-head');
+                    console.log('Head classes after dark mode activation:', head.classList);
                     const navbar = document.getElementById('navbar');
                     navbar.classList.add('navbar-dark', 'bg-dark');
                     console.log('Navbar classes after dark mode activation:', navbar.classList);
@@ -263,6 +266,9 @@
                     console.log('Dark mode is deactivated');
                     document.body.classList.remove('dark-mode');
                     console.log('Body classes after dark mode deactivation:', document.body.classList);
+                    const head = document.querySelector('head');
+                    head.classList.remove('dark-mode-head');
+                    console.log('Head classes after dark mode deactivation:', head.classList);
                     const navbar = document.getElementById('navbar');
                     navbar.classList.remove('navbar-dark', 'bg-dark');
                     console.log('Navbar classes after dark mode deactivation:', navbar.classList);
@@ -280,6 +286,9 @@
                 darkModeIcon.classList.add('fa-moon');
                 document.body.classList.add('dark-mode');
                 console.log('Initial state: Body classes after dark mode activation:', document.body.classList);
+                const head = document.querySelector('head');
+                head.classList.add('dark-mode-head');
+                console.log('Initial state: Head classes after dark mode activation:', head.classList);
                 const navbar = document.getElementById('navbar');
                 navbar.classList.add('navbar-dark', 'bg-dark');
                 console.log('Initial state: Navbar classes after dark mode activation:', navbar.classList);
@@ -290,6 +299,9 @@
                 console.log('Initial state: Dark mode is deactivated');
                 document.body.classList.remove('dark-mode');
                 console.log('Initial state: Body classes after dark mode deactivation:', document.body.classList);
+                const head = document.querySelector('head');
+                head.classList.remove('dark-mode-head');
+                console.log('Initial state: Head classes after dark mode deactivation:', head.classList);
                 const navbar = document.getElementById('navbar');
                 navbar.classList.remove('navbar-dark', 'bg-dark');
                 console.log('Initial state: Navbar classes after dark mode deactivation:', navbar.classList);
