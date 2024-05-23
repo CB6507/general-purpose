@@ -252,11 +252,33 @@
             const darkmode = new Darkmode(darkModeOptions);
             darkmode.showWidget();
 
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const darkModeIcon = document.getElementById('darkModeIcon');
+            document.addEventListener('DOMContentLoaded', function() {
+                const darkModeToggle = document.getElementById('darkModeToggle');
+                const darkModeIcon = document.getElementById('darkModeIcon');
 
-            darkModeToggle.addEventListener('click', () => {
-                darkmode.toggle();
+                darkModeToggle.addEventListener('click', () => {
+                    darkmode.toggle();
+                    if (darkmode.isActivated()) {
+                        darkModeIcon.classList.remove('fa-sun');
+                        darkModeIcon.classList.add('fa-moon');
+                        document.body.classList.add('dark-mode');
+                        const head = document.querySelector('head');
+                        head.classList.add('dark-mode-head');
+                        const navbar = document.getElementById('navbar');
+                        navbar.classList.add('navbar-dark', 'bg-dark');
+                        document.querySelector('head').classList.add('dark-mode-head');
+                    } else {
+                        document.querySelector('head').classList.remove('dark-mode-head');
+                        document.body.classList.remove('dark-mode');
+                        const head = document.querySelector('head');
+                        head.classList.remove('dark-mode-head');
+                        const navbar = document.getElementById('navbar');
+                        navbar.classList.remove('navbar-dark', 'bg-dark');
+                        darkModeIcon.classList.remove('fa-moon');
+                        darkModeIcon.classList.add('fa-sun');
+                    }
+                });
+
                 if (darkmode.isActivated()) {
                     darkModeIcon.classList.remove('fa-sun');
                     darkModeIcon.classList.add('fa-moon');
@@ -265,7 +287,7 @@
                     head.classList.add('dark-mode-head');
                     const navbar = document.getElementById('navbar');
                     navbar.classList.add('navbar-dark', 'bg-dark');
-                    document.querySelector('head').classList.add('dark-mode-head');
+                    document.getElementById('tableContainer').classList.add('dark-mode');
                 } else {
                     document.querySelector('head').classList.remove('dark-mode-head');
                     document.body.classList.remove('dark-mode');
@@ -273,31 +295,11 @@
                     head.classList.remove('dark-mode-head');
                     const navbar = document.getElementById('navbar');
                     navbar.classList.remove('navbar-dark', 'bg-dark');
+                    document.getElementById('tableContainer').classList.remove('dark-mode');
                     darkModeIcon.classList.remove('fa-moon');
                     darkModeIcon.classList.add('fa-sun');
                 }
             });
-
-            if (darkmode.isActivated()) {
-                darkModeIcon.classList.remove('fa-sun');
-                darkModeIcon.classList.add('fa-moon');
-                document.body.classList.add('dark-mode');
-                const head = document.querySelector('head');
-                head.classList.add('dark-mode-head');
-                const navbar = document.getElementById('navbar');
-                navbar.classList.add('navbar-dark', 'bg-dark');
-                document.getElementById('tableContainer').classList.add('dark-mode');
-            } else {
-                document.querySelector('head').classList.remove('dark-mode-head');
-                document.body.classList.remove('dark-mode');
-                const head = document.querySelector('head');
-                head.classList.remove('dark-mode-head');
-                const navbar = document.getElementById('navbar');
-                navbar.classList.remove('navbar-dark', 'bg-dark');
-                document.getElementById('tableContainer').classList.remove('dark-mode');
-                darkModeIcon.classList.remove('fa-moon');
-                darkModeIcon.classList.add('fa-sun');
-            }
         });
     </script>
     <style>
