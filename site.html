@@ -179,18 +179,35 @@
                                 const xColumn = xAxisColumn.value;
                                 const yColumn = yAxisColumn.value;
 
-                                const labels = updatedData.map(row => row[xColumn]);
-                                const dataPoints = updatedData.map(row => row[yColumn]);
+                                const groupedData = updatedData.reduce((acc, row) => {
+                                    const xValue = row[xColumn];
+                                    const yValue = row[yColumn];
+                                    if (!acc[xValue]) {
+                                        acc[xValue] = {};
+                                    }
+                                    if (!acc[xValue][yValue]) {
+                                        acc[xValue][yValue] = 0;
+                                    }
+                                    acc[xValue][yValue]++;
+                                    return acc;
+                                }, {});
 
-                                const chartData = {
-                                    labels: labels,
-                                    datasets: [{
-                                        label: yColumn,
-                                        data: dataPoints,
+                                const labels = Object.keys(groupedData);
+                                const yValues = Array.from(new Set(updatedData.map(row => row[yColumn])));
+
+                                const datasets = yValues.map(yValue => {
+                                    return {
+                                        label: yValue,
+                                        data: labels.map(label => groupedData[label][yValue] || 0),
                                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                                         borderColor: 'rgba(75, 192, 192, 1)',
                                         borderWidth: 1
-                                    }]
+                                    };
+                                });
+
+                                const chartData = {
+                                    labels: labels,
+                                    datasets: datasets
                                 };
 
                                 const ctx = document.getElementById('myChart').getContext('2d');
@@ -202,7 +219,11 @@
                                     data: chartData,
                                     options: {
                                         scales: {
+                                            x: {
+                                                stacked: true
+                                            },
                                             y: {
+                                                stacked: true,
                                                 beginAtZero: true
                                             }
                                         }
