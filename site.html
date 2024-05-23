@@ -186,7 +186,7 @@
                                     }]
                                 };
                                 const ctx = document.getElementById('myChart').getContext('2d');
-                                if (window.myChart) {
+                                if (window.myChart instanceof Chart) {
                                     window.myChart.destroy();
                                 }
                                 window.myChart = new Chart(ctx, {
