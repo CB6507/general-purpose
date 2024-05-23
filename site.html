@@ -32,8 +32,6 @@
             </ul>
             <button id="darkModeToggle" class="btn btn-light ml-auto">
                 <i class="fas fa-sun" id="darkModeIcon"></i>
-                <!-- Debug: Check if icon is loaded -->
-                <i class="fas fa-moon"></i>
             </button>
         </div>
     </nav>
@@ -241,20 +239,24 @@
 
             darkModeToggle.addEventListener('click', () => {
                 darkmode.toggle();
+                console.log('Dark mode toggled');
                 if (darkmode.isActivated()) {
+                    console.log('Dark mode is activated');
                     darkModeIcon.classList.remove('fa-sun');
                     darkModeIcon.classList.add('fa-moon');
-                } else {
+                    console.log('Dark mode is deactivated');
                     darkModeIcon.classList.remove('fa-moon');
                     darkModeIcon.classList.add('fa-sun');
                 }
             });
 
             // Set initial icon based on current mode
+            console.log('Initial dark mode state:', darkmode.isActivated());
             if (darkmode.isActivated()) {
+                console.log('Initial state: Dark mode is activated');
                 darkModeIcon.classList.remove('fa-sun');
                 darkModeIcon.classList.add('fa-moon');
-            } else {
+                console.log('Initial state: Dark mode is deactivated');
                 darkModeIcon.classList.remove('fa-moon');
                 darkModeIcon.classList.add('fa-sun');
             }
