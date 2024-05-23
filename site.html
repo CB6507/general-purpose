@@ -168,6 +168,15 @@
                                 let labels = Object.keys(groupedData);
                                 if (labels.every(label => isNaN(label))) {
                                     labels = labels.sort();
+                                } else {
+                                    labels = labels.sort((a, b) => {
+                                        const numA = parseFloat(a);
+                                        const numB = parseFloat(b);
+                                        if (!isNaN(numA) && !isNaN(numB)) {
+                                            return numA - numB;
+                                        }
+                                        return a.localeCompare(b);
+                                    });
                                 }
                                 const yValues = Array.from(new Set(updatedData.map(row => row[yColumn])));
 
