@@ -60,7 +60,14 @@
     <section id="charts" class="py-20 bg-gray-100">
         <div class="container mx-auto text-center">
             <h2 class="text-4xl font-bold mb-8">Charts</h2>
-            <div id="chartContainer">
+            <div class="mb-4">
+                <label for="xAxisColumn" class="mr-2">X-Axis:</label>
+                <select id="xAxisColumn" class="form-select"></select>
+                <label for="yAxisColumn" class="mr-2">Y-Axis:</label>
+                <select id="yAxisColumn" class="form-select"></select>
+                <button id="updateChart" class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">Update Chart</button>
+            </div>
+            <div id="chartContainer" class="mx-auto">
                 <canvas id="myChart"></canvas>
             </div>
         </div>
@@ -144,29 +151,52 @@
                             });
 
 
-                            const labels = data.map(row => row[Object.keys(row)[0]]);
-                            const chartData = {
-                                labels: labels,
-                                datasets: [{
-                                    label: 'Dataset',
-                                    data: data.map(row => row[Object.keys(row)[1]]),
-                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                    borderWidth: 1
-                                }]
-                            };
-                            const ctx = document.getElementById('myChart').getContext('2d');
-                            new Chart(ctx, {
-                                type: 'bar',
-                                data: chartData,
-                                options: {
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
+                            const xAxisColumn = document.getElementById('xAxisColumn');
+                            const yAxisColumn = document.getElementById('yAxisColumn');
+
+                            // Populate the dropdowns with column names
+                            allKeys.forEach(key => {
+                                const optionX = document.createElement('option');
+                                optionX.value = key;
+                                optionX.text = key;
+                                xAxisColumn.appendChild(optionX);
+
+                                const optionY = document.createElement('option');
+                                optionY.value = key;
+                                optionY.text = key;
+                                yAxisColumn.appendChild(optionY);
+                            });
+
+                            function updateChart() {
+                                const xColumn = xAxisColumn.value;
+                                const yColumn = yAxisColumn.value;
+
+                                const labels = data.map(row => row[xColumn]);
+                                const chartData = {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: yColumn,
+                                        data: data.map(row => row[yColumn]),
+                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                        borderWidth: 1
+                                    }]
+                                };
+                                const ctx = document.getElementById('myChart').getContext('2d');
+                                new Chart(ctx, {
+                                    type: 'bar',
+                                    data: chartData,
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
                                         }
                                     }
-                                }
-                            });
+                                });
+                            }
+
+                            document.getElementById('updateChart').addEventListener('click', updateChart);
                             document.getElementById('rowsPerPage').addEventListener('change', function(event) {
                                 const pageSize = parseInt(event.target.value, 10);
                                 tabulator.setPageSize(pageSize);
